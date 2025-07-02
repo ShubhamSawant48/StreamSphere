@@ -1,13 +1,21 @@
 import { BG_URL } from "../utils/constants";
 import { useRef, useState } from "react";
 import Header from "./Header";
+import validate from "../utils/validate";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
+  const [errMsg, setErrMsg] = useState(null);
 
   const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
+
+  const handleButtonClick = () => {
+    const errorMessage = validate(email.current.value, password.current.value);
+    setErrMsg(errorMessage);
+    if (errMsg) return;
+  };
 
   const toggleSignIn = () => {
     setIsSignIn(!isSignIn);
@@ -30,25 +38,29 @@ const Login = () => {
         </h1>
         {!isSignIn && (
           <input
-            useRef={name}
+            ref={name}
             type="text"
             placeholder="Enter Your Name"
             className="rounded-md bg-gray-900 w-[80%] px-6 py-4 ml-9 mt-2 border border-solid-1 border-white"
           ></input>
         )}
         <input
-          useRef={email}
+          ref={email}
           type="text"
           placeholder="Enter Your Email"
           className="rounded-md bg-gray-900 w-[80%] px-6 py-4 ml-9 mt-1 mb-1 border border-solid-1 border-white"
         ></input>
         <input
-          useRef={password}
+          ref={password}
           type="password"
           placeholder="Password"
           className="rounded-md bg-gray-900 w-[80%] px-6 py-4 ml-9 mb-6 border border-solid-1 border-white"
         ></input>
-        <button className="rounded-md bg-red-900 w-[80%] px-8 py-4 ml-9 my-2">
+        <p className="font-bold text-red-600 text-lg">{errMsg}</p>
+        <button
+          onClick={handleButtonClick}
+          className="rounded-md bg-red-900 w-[80%] px-8 py-4 ml-9 my-2"
+        >
           Sign In
         </button>
         {!isSignIn && (
@@ -75,7 +87,6 @@ const Login = () => {
           </h3>
         )}
       </form>
-      {console.log(name)}
     </div>
   );
 };

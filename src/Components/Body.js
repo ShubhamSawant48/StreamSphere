@@ -8,12 +8,10 @@ const Body = () => {
     {
       path: "/",
       element: <Login />,
-      children: [
-        {
-          path: "/Main",
-          element: <Main.js />,
-        },
-      ],
+    },
+    {
+      path: "/Main",
+      element: <Main.js />,
     },
     {
       path: "/browse",
