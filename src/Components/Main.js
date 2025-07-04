@@ -1,5 +1,13 @@
+import LiveBg from "./LiveBg";
+
 const Main = () => {
-  return <div>Hi</div>;
+  return (
+    <div>
+      <div>
+        <LiveBg />
+      </div>
+    </div>
+  );
 };
 
 export default Main;
