@@ -2,10 +2,17 @@ import { BG_URL } from "../utils/constants";
 import { useRef, useState } from "react";
 import Header from "./Header";
 import validate from "../utils/validate";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [errMsg, setErrMsg] = useState(null);
+  const navigate = useNavigate();
 
   const name = useRef(null);
   const email = useRef(null);
@@ -14,7 +21,41 @@ const Login = () => {
   const handleButtonClick = () => {
     const errorMessage = validate(email.current.value, password.current.value);
     setErrMsg(errorMessage);
-    if (errMsg) return;
+    if (errorMessage) return;
+
+    if (!isSignIn) {
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          navigate("/main");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrMsg(errorCode + "-" + errorMessage);
+        });
+    } else {
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          navigate("/main");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrMsg(errorCode + "-" + errorMessage);
+        });
+    }
   };
 
   const toggleSignIn = () => {
@@ -56,15 +97,16 @@ const Login = () => {
           placeholder="Password"
           className="rounded-md bg-gray-900 w-[80%] px-6 py-4 ml-9 mb-6 border border-solid-1 border-white"
         ></input>
-        <p className="font-bold text-red-600 text-lg">{errMsg}</p>
+        <p className="font-bold text-red-600 text-lg ml-10">{errMsg}</p>
         <button
           onClick={handleButtonClick}
-          className="rounded-md bg-red-900 w-[80%] px-8 py-4 ml-9 my-2"
+          className="rounded-md bg-red-900 w-[80%] px-8 py-4 ml-9 mt-2"
         >
-          Sign In
+          {isSignIn ? "Sign In" : "Sign Up"}
         </button>
+        ; ;
         {!isSignIn && (
-          <h3 className="mb-10">
+          <h3 className="mb-10 ml-32">
             Already registered?{" "}
             <span
               onClick={toggleSignIn}
@@ -75,7 +117,7 @@ const Login = () => {
           </h3>
         )}
         {isSignIn && (
-          <h3 className="mb-10">
+          <h3 className="mb-10 ml-32">
             {" "}
             New to Netflix?{" "}
             <span
