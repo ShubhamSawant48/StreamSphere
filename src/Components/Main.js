@@ -2,14 +2,17 @@ import Header from "./Header";
 import LiveBg from "./LiveBg";
 import MoviesList from "./MoviesList";
 import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
+import usePopularMovies from "../hooks/usePopularMovies";
+import useTrendingMovies from "../hooks/useTrendingMovies";
+import useUpcomingMovies from "../hooks/useUpcomingMovies";
 import LiveBgInfo from "./LiveBgInfo";
 import { useSelector } from "react-redux";
 
 const Main = () => {
-  // useMostPopularMovies();
-  // useTopBoxOffice();
-  // useTopRatedMovies();
   useNowPlayingMovies();
+  usePopularMovies();
+  useTrendingMovies();
+  useUpcomingMovies();
 
   const storeMovies = useSelector((store) => store.movies);
   return (
@@ -19,19 +22,25 @@ const Main = () => {
         <LiveBg />
         <Header />
       </div>
-      <div className="bg-black h-auto text-white">
-        <MoviesList
-          title="Popular Movies"
-          data={storeMovies.mostPopularMovies}
-        />
-        <MoviesList
-          title="Top Box Office"
-          data={storeMovies.topBoxOfficeMovies}
-        />
-        <MoviesList
-          title="Top Rated Movies"
-          data={storeMovies.topRatedMovies}
-        />
+      <div className="bg-black text-white">
+        <div>
+          <MoviesList
+            title="Now Playing Movies"
+            data={storeMovies.nowPlayingMovies?.results}
+          />
+          <MoviesList
+            title="Popular Movies"
+            data={storeMovies.popularMovies?.results}
+          />
+          <MoviesList
+            title="Trending Movies"
+            data={storeMovies.trendingMovies?.results}
+          />
+          <MoviesList
+            title="Upcoming Movies"
+            data={storeMovies.upcomingMovies?.results}
+          />
+        </div>
       </div>
     </div>
   );

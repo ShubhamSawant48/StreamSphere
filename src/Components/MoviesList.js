@@ -1,13 +1,16 @@
 import MovieCard from "./MovieCard";
 
-const MoviesList = ({ title, movies }) => {
+const MoviesList = ({ title, data }) => {
+  if (!data) return;
   return (
-    <div>
-      <h1>{title}</h1>
-      <div className="flex overflow-x-scroll">
-        {/* {movies.map((movie) => (
-          <MovieCard data={movie} key={movie.id} />
-        ))} */}
+    <div className="px-6">
+      <h1 className="font-bold text-3xl p-3">{title}</h1>
+      <div className="flex overflow-x-auto scrollbar-hide">
+        <div className="flex gap-8 p-6">
+          {data.map((movie) => (
+            <MovieCard data={movie} key={movie.id} />
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -1,8 +1,12 @@
-const MovieCard = ({ movie }) => {
+import { TMDB_CDN } from "../utils/constants";
+
+const MovieCard = ({ data }) => {
   return (
-    <div>
-      <img src={movie.primaryImage} alt="Movie Poster"></img>
-    </div>
+    <img
+      src={TMDB_CDN + data.poster_path}
+      alt="Movie Poster"
+      className="w-40 pr-4 pb-3"
+    ></img>
   );
 };
 

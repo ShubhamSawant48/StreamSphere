@@ -4,7 +4,7 @@ import { addNowPlayingMovies } from "../utils/moviesSlice";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-const useNowPlayingMovies = async () => {
+const useNowPlayingMovies = () => {
   const dispatch = useDispatch();
   const NowPlyMov = useSelector((store) => store.movies.nowPlayingMovies);
 

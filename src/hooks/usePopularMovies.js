@@ -1,6 +1,8 @@
-const { useDispatch } = require("react-redux");
-const { TMDB_KEY } = require("../utils/constants");
-const { useEffect } = require("react");
+import { useDispatch } from "react-redux";
+import { TMDB_KEY } from "../utils/constants";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { addPopularMovies } from "../utils/moviesSlice";
 
 const usePopularMovies = () => {
   const dispatch = useDispatch();
@@ -8,7 +10,7 @@ const usePopularMovies = () => {
 
   const getPopularMovies = async () => {
     const data = await fetch(
-      "https://api.themoviedb.org/3/movie/now_playing?page=1",
+      "https://api.themoviedb.org/3/movie/popular?page=1",
       TMDB_KEY
     );
     const json = await data.json();

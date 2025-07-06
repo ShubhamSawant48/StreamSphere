@@ -20,13 +20,15 @@ export const API_KEY = {
   },
 };
 
-const ACCESS_TOKEN_IMDB =
+const ACCESS_TOKEN_TMDB =
   "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzYTVhZGFkOWJiMzAyMGMwYWQxNjZjNzkxOWE4NjdiNiIsIm5iZiI6MTc1MTgxNjM1My45NjMsInN1YiI6IjY4NmE5OGExOGFmNjE1YzA0ZDlhNDA0NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QJnoRyUcBSmnforsZVJPx72gg3a-cM7ydynWKXbKUqs";
 
 export const TMDB_KEY = {
   method: "GET",
   headers: {
-    Authorization: `Bearer ${ACCESS_TOKEN_IMDB}`,
+    Authorization: `Bearer ${ACCESS_TOKEN_TMDB}`,
     Accept: "application/json",
   },
 };
+
+export const TMDB_CDN = "https://image.tmdb.org/t/p/w185";
