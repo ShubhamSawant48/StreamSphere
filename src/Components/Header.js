@@ -2,7 +2,7 @@ import { NETFLIX_LOGO } from "../utils/constants";
 
 const Header = () => {
   return (
-    <div className="w-full h-20 absolute bg-gradient-to-b from-black">
+    <div className="h-20 absolute inset-0 bg-gradient-to-b from-black">
       <img
         src={NETFLIX_LOGO}
         alt="Netflix Logo"

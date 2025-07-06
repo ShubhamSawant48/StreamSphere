@@ -6,10 +6,27 @@ export const NETFLIX_LOGO =
 
 export const TBO_URL = "https://imdb236.p.rapidapi.com/api/imdb/top-box-office";
 
+export const MPM_URL =
+  "https://imdb236.p.rapidapi.com/api/imdb/most-popular-movies";
+
+export const TRM_URL =
+  "https://imdb236.p.rapidapi.com/api/imdb/top-rated-english-movies";
+
 export const API_KEY = {
   method: "GET",
   headers: {
     "x-rapidapi-key": "16328ef034msh5836262b1ab22bdp100023jsna1a512ebb6ad",
     "x-rapidapi-host": "imdb236.p.rapidapi.com",
+  },
+};
+
+const ACCESS_TOKEN_IMDB =
+  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzYTVhZGFkOWJiMzAyMGMwYWQxNjZjNzkxOWE4NjdiNiIsIm5iZiI6MTc1MTgxNjM1My45NjMsInN1YiI6IjY4NmE5OGExOGFmNjE1YzA0ZDlhNDA0NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QJnoRyUcBSmnforsZVJPx72gg3a-cM7ydynWKXbKUqs";
+
+export const TMDB_KEY = {
+  method: "GET",
+  headers: {
+    Authorization: `Bearer ${ACCESS_TOKEN_IMDB}`,
+    Accept: "application/json",
   },
 };
