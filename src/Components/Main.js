@@ -23,7 +23,7 @@ const Main = () => {
         <Header />
       </div>
       <div className="bg-black text-white">
-        <div>
+        <div className="-mt-96 relative z-30">
           <MoviesList
             title="Now Playing Movies"
             data={storeMovies.nowPlayingMovies?.results}

@@ -5,7 +5,7 @@ const MovieCard = ({ data }) => {
     <img
       src={TMDB_CDN + data.poster_path}
       alt="Movie Poster"
-      className="w-40 pr-4 pb-3"
+      className="w-40 pr-4 rounded-md"
     ></img>
   );
 };
