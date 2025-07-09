@@ -37,3 +37,9 @@ export const PROFILE_PIC =
   "https://i.pinimg.com/236x/f3/85/d7/f385d78eba93e8b768bcc04bf96fe5a5.jpg";
 
 export const GEMINI_APIKEY = "AIzaSyBluMeP_vG4SOSarqpD1xMfjY9uA3P_dg0";
+
+export const SUPPORTED_LANGUAGES = [
+  { identifier: "english", name: "English" },
+  { identifier: "hindi", name: "hindi" },
+  { identifier: "marathi", name: "Marathi" },
+];

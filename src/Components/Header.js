@@ -6,6 +6,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useEffect } from "react";
 import { toggleGeminiBtn } from "../utils/geminiSlice";
+import { SUPPORTED_LANGUAGES } from "../utils/constants";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const Header = () => {
   }, []);
 
   const user = useSelector((store) => store.user);
+  const language = useSelector((store) => store.config.lang);
   const toggleGeminiBtnInfo = useSelector(
     (store) => store.gemini.showGeminiBtn
   );
@@ -61,9 +63,15 @@ const Header = () => {
         alt="Netflix Logo"
         className="w-60 h-20 ml-20 mt-2"
       ></img>
-
       {user && (
         <div className="flex gap-4">
+          {
+            <select>
+              {SUPPORTED_LANGUAGES.map((lang) => (
+                <option>{lang.name}</option>
+              ))}
+            </select>
+          }
           <Link to={"/browse"}>
             <button
               className="bg-purple-600 font-bold text-white rounded-lg px-3 my-4 py-3"
