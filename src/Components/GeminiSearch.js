@@ -1,5 +1,23 @@
+import Header from "./Header";
+import { BG_URL } from "../utils/constants";
+import GeminiSearchBar from "./GeminiSearchBar";
+
 const GeminiSearch = () => {
-  return <div>Hi</div>;
+  return (
+    <>
+      <div className="fixed">
+        <img
+          src={BG_URL}
+          alt="Background Image"
+          className="w-screen h-screen object-cover"
+        ></img>
+      </div>
+      <div>
+        <Header />
+        <GeminiSearchBar />
+      </div>
+    </>
+  );
 };
 
 export default GeminiSearch;

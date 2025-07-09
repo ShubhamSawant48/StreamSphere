@@ -1,10 +1,11 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NETFLIX_LOGO } from "../utils/constants";
 import { addUser, removeUser } from "../utils/userSlice";
-import { useNavigate } from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useEffect } from "react";
+import { toggleGeminiBtn } from "../utils/geminiSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -34,13 +35,56 @@ const Header = () => {
     return () => unsubscribe();
   }, []);
 
+  const user = useSelector((store) => store.user);
+  const toggleGeminiBtnInfo = useSelector(
+    (store) => store.gemini.showGeminiBtn
+  );
+
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
+
+  const handleToggleGeminiBtn = () => {
+    dispatch(toggleGeminiBtn());
+  };
+
   return (
-    <div className="h-20 absolute inset-0 bg-gradient-to-b from-black">
+    <div className="h-20 absolute inset-0 bg-gradient-to-b from-black flex justify-between">
       <img
         src={NETFLIX_LOGO}
         alt="Netflix Logo"
         className="w-60 h-20 ml-20 mt-2"
       ></img>
+
+      {user && (
+        <div className="flex gap-4">
+          <Link to={"/browse"}>
+            <button
+              className="bg-purple-600 font-bold text-white rounded-lg px-3 my-4 py-3"
+              onClick={handleToggleGeminiBtn}
+            >
+              {toggleGeminiBtnInfo ? "Home" : "Gemini Search"}
+            </button>
+          </Link>
+          <button
+            className="bg-red-700 text-white font-bold rounded-lg px-3 my-4 hover:text-black "
+            onClick={handleSignOut}
+          >
+            Sign Out
+          </button>
+          <img
+            src={user.photoURL}
+            alt="user profile photo"
+            className="w-30 h-15 my-2 rounded-full"
+          ></img>
+        </div>
+      )}
     </div>
   );
 };
