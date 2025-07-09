@@ -5,11 +5,13 @@ import validate from "../utils/validate";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { PROFILE_PIC } from "../utils/constants";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
@@ -35,16 +37,28 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
-          const { uid, displayName, email, photoURL } = user;
-          dispatch(
-            addUser({
-              uid: uid,
-              displayname: displayName,
-              email: email,
-              photoURL: photoURL,
+
+          updateProfile(user, {
+            displayName: "User",
+            photoURL: PROFILE_PIC,
+          })
+            .then(() => {
+              // Profile updated!
+              const { uid, displayName, email, photoURL } = user;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  displayname: displayName,
+                  email: email,
+                  photoURL: photoURL,
+                })
+              );
+              navigate("/main");
             })
-          );
-          navigate("/main");
+            .catch((error) => {
+              // An error occurred
+              setErrMsg(error);
+            });
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -60,15 +74,6 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          const { uid, displayName, email, photoURL } = user;
-          dispatch(
-            addUser({
-              uid: uid,
-              displayname: displayName,
-              email: email,
-              photoURL: photoURL,
-            })
-          );
           navigate("/main");
         })
         .catch((error) => {
@@ -121,11 +126,10 @@ const Login = () => {
         <p className="font-bold text-red-600 text-lg ml-10">{errMsg}</p>
         <button
           onClick={handleButtonClick}
-          className="rounded-md bg-red-900 w-[80%] px-8 py-4 ml-9 mt-2"
+          className="rounded-md bg-red-900 w-[80%] px-8 py-4 ml-9 mt-2 active:text-black"
         >
           {isSignIn ? "Sign In" : "Sign Up"}
         </button>
-        ; ;
         {!isSignIn && (
           <h3 className="mb-10 ml-32">
             Already registered?{" "}
