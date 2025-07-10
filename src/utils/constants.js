@@ -40,6 +40,6 @@ export const GEMINI_APIKEY = "AIzaSyBluMeP_vG4SOSarqpD1xMfjY9uA3P_dg0";
 
 export const SUPPORTED_LANGUAGES = [
   { identifier: "english", name: "English" },
-  { identifier: "hindi", name: "hindi" },
+  { identifier: "hindi", name: "Hindi" },
   { identifier: "marathi", name: "Marathi" },
 ];

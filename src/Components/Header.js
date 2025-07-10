@@ -18,6 +18,7 @@ const Header = () => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
+        dispatch(removeUser());
         const { uid, displayName, email, photoURL } = user;
         dispatch(
           addUser({
@@ -69,23 +70,42 @@ const Header = () => {
       ></img>
       {user && (
         <div className="flex gap-4">
-          {
-            <select onChange={handleLangChange}>
+          {!toggleGeminiBtnInfo && (
+            <select
+              onChange={handleLangChange}
+              className="font-bold bg-lime-500 text-black rounded-lg px-3 my-4 py-3 cursor-pointer"
+            >
               {SUPPORTED_LANGUAGES.map((lang) => (
-                <option key={lang.identifier} value={lang.identifier}>
+                <option
+                  key={lang.identifier}
+                  value={lang.identifier}
+                  className="bg-white text-black cursor-pointer"
+                >
                   {lang.name}
                 </option>
               ))}
             </select>
-          }
-          <Link to={"/browse"}>
-            <button
-              className="bg-purple-600 font-bold text-white rounded-lg px-3 my-4 py-3"
-              onClick={handleToggleGeminiBtn}
-            >
-              {toggleGeminiBtnInfo ? "Home" : "Gemini Search"}
-            </button>
-          </Link>
+          )}
+          {toggleGeminiBtnInfo && (
+            <Link to={"/browse"}>
+              <button
+                className="bg-purple-600 font-bold text-white rounded-lg px-3 my-4 py-3"
+                onClick={handleToggleGeminiBtn}
+              >
+                Gemini Search
+              </button>
+            </Link>
+          )}
+          {!toggleGeminiBtnInfo && (
+            <Link to={"/main"}>
+              <button
+                className="bg-purple-600 font-bold text-white rounded-lg px-3 my-4 py-3"
+                onClick={handleToggleGeminiBtn}
+              >
+                Home
+              </button>
+            </Link>
+          )}
           <button
             className="bg-red-700 text-white font-bold rounded-lg px-3 my-4 hover:text-black "
             onClick={handleSignOut}

@@ -1,6 +1,7 @@
 import Header from "./Header";
 import { BG_URL } from "../utils/constants";
 import GeminiSearchBar from "./GeminiSearchBar";
+import GeminiSuggestedMovies from "./GeminiSuggestedMovies";
 
 const GeminiSearch = () => {
   return (
@@ -15,6 +16,7 @@ const GeminiSearch = () => {
       <div>
         <Header />
         <GeminiSearchBar />
+        <GeminiSuggestedMovies />
       </div>
     </>
   );
