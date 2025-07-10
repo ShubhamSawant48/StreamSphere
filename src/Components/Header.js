@@ -7,6 +7,7 @@ import { auth } from "../utils/firebase";
 import { useEffect } from "react";
 import { toggleGeminiBtn } from "../utils/geminiSlice";
 import { SUPPORTED_LANGUAGES } from "../utils/constants";
+import { changeLang } from "../utils/configSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -37,7 +38,6 @@ const Header = () => {
   }, []);
 
   const user = useSelector((store) => store.user);
-  const language = useSelector((store) => store.config.lang);
   const toggleGeminiBtnInfo = useSelector(
     (store) => store.gemini.showGeminiBtn
   );
@@ -56,6 +56,10 @@ const Header = () => {
     dispatch(toggleGeminiBtn());
   };
 
+  const handleLangChange = (e) => {
+    dispatch(changeLang(e.target.value));
+  };
+
   return (
     <div className="h-20 absolute inset-0 bg-gradient-to-b from-black flex justify-between">
       <img
@@ -66,9 +70,11 @@ const Header = () => {
       {user && (
         <div className="flex gap-4">
           {
-            <select>
+            <select onChange={handleLangChange}>
               {SUPPORTED_LANGUAGES.map((lang) => (
-                <option>{lang.name}</option>
+                <option key={lang.identifier} value={lang.identifier}>
+                  {lang.name}
+                </option>
               ))}
             </select>
           }
