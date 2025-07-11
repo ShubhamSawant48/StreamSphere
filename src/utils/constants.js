@@ -23,7 +23,7 @@ export const API_KEY = {
 export const TMDB_KEY = {
   method: "GET",
   headers: {
-    Authorization: `Bearer ${process.env.ACCESS_TOKEN_TMDB}`,
+    Authorization: `Bearer ${process.env.REACT_APP_ACCESS_TOKEN_TMDB}`,
     Accept: "application/json",
   },
 };

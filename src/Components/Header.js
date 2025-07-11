@@ -8,18 +8,20 @@ import { useEffect } from "react";
 import { toggleGeminiBtn } from "../utils/geminiSlice";
 import { SUPPORTED_LANGUAGES } from "../utils/constants";
 import { changeLang } from "../utils/configSlice";
+import { useLocation } from "react-router-dom";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
-        dispatch(removeUser());
         const { uid, displayName, email, photoURL } = user;
+        console.log("auth state changed");
         dispatch(
           addUser({
             uid: uid,
@@ -28,15 +30,20 @@ const Header = () => {
             photoURL: photoURL,
           })
         );
+        if (location.pathname === "/") {
+          navigate("/main");
+        }
       } else {
         // User is signed out
         dispatch(removeUser());
-        navigate("/");
+        console.log("auth state changed");
+        if (location.pathname !== "/") {
+          navigate("/");
+        }
       }
     });
-
     return () => unsubscribe();
-  }, []);
+  }, [dispatch, navigate]);
 
   const user = useSelector((store) => store.user);
   const toggleGeminiBtnInfo = useSelector(

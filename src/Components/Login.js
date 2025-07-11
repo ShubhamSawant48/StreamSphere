@@ -1,5 +1,5 @@
 import { BG_URL } from "../utils/constants";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Header from "./Header";
 import validate from "../utils/validate";
 import {
@@ -16,12 +16,14 @@ import { PROFILE_PIC } from "../utils/constants";
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [errMsg, setErrMsg] = useState(null);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  dispatch(removeUser());
 
   const handleButtonClick = () => {
     const errorMessage = validate(email.current.value, password.current.value);

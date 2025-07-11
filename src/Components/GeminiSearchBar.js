@@ -20,7 +20,6 @@ const GeminiSearchBar = () => {
     );
 
     const json = data.json();
-    console.log(json);
 
     return json;
   };
@@ -44,8 +43,6 @@ const GeminiSearchBar = () => {
     const geminiMovies = response.text.split(", ");
     const promiseArray = geminiMovies.map((movie) => searchTMDB(movie));
     const TMDBResults = await Promise.all(promiseArray);
-    console.log(promiseArray);
-    console.log(TMDBResults);
 
     dispatch(getGeminiMoviesNames(geminiMovies));
     dispatch(getGeminiResults(TMDBResults));

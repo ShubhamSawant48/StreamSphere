@@ -6,7 +6,7 @@ const GeminiSuggestedMovies = () => {
   const moviePoster = useSelector((store) => store.gemini.geminiResults);
   if (!movieName) return;
   return (
-    <div className="absolute bg-black top-[270px] left-[200px] w-[850px] mx-40 px-16 py-8 bg-opacity-70 rounded-sm text-white">
+    <div className="absolute bg-black top-[270px] w-auto mx-3 px-16 py-8 bg-opacity-70 rounded-sm text-white">
       <MoviesList title={movieName[0]} data={moviePoster[0].results} />
       <MoviesList title={movieName[1]} data={moviePoster[1].results} />
       <MoviesList title={movieName[2]} data={moviePoster[2].results} />
