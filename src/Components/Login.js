@@ -55,7 +55,6 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
-              navigate("/main");
             })
             .catch((error) => {
               // An error occurred
@@ -76,7 +75,6 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          navigate("/main");
         })
         .catch((error) => {
           const errorCode = error.code;

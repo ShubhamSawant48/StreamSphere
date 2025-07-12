@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const geminiSlice = createSlice({
   name: "gemini",
   initialState: {
-    showGeminiBtn: false,
+    showGeminiBtn: true,
     geminiMoviesNames: null,
     geminiResults: null,
   },

@@ -9,10 +9,10 @@ import LiveBgInfo from "./LiveBgInfo";
 import { useSelector } from "react-redux";
 
 const Main = () => {
-  // useNowPlayingMovies();
-  // usePopularMovies();
-  // useTrendingMovies();
-  // useUpcomingMovies();
+  useNowPlayingMovies();
+  usePopularMovies();
+  useTrendingMovies();
+  useUpcomingMovies();
 
   const storeMovies = useSelector((store) => store.movies);
   return (

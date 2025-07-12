@@ -21,7 +21,6 @@ const Header = () => {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
         const { uid, displayName, email, photoURL } = user;
-        console.log("auth state changed");
         dispatch(
           addUser({
             uid: uid,
@@ -36,7 +35,6 @@ const Header = () => {
       } else {
         // User is signed out
         dispatch(removeUser());
-        console.log("auth state changed");
         if (location.pathname !== "/") {
           navigate("/");
         }
