@@ -1,26 +1,25 @@
-import { useDispatch } from "react-redux";
-import { TMDB_KEY } from "../utils/constants";
-import { addNowPlayingMovies } from "../utils/moviesSlice";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { addNowPlayingMovies } from "../store/moviesSlice";
+
+const API_BASE_URL = "https://your-backend.onrender.com";
 
 const useNowPlayingMovies = () => {
   const dispatch = useDispatch();
-  const NowPlyMov = useSelector((store) => store.movies.nowPlayingMovies);
-
-  const getNPMovies = async () => {
-    const data = await fetch(
-      "https://api.themoviedb.org/3/movie/now_playing?page=1",
-      TMDB_KEY
-    );
-    const json = await data.json();
-
-    dispatch(addNowPlayingMovies(json));
-  };
 
   useEffect(() => {
-    !NowPlyMov && getNPMovies();
-  });
+    const fetchNowPlayingMovies = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/now-playing`);
+        const data = await res.json();
+        dispatch(addNowPlayingMovies(data.results));
+      } catch (error) {
+        console.error("Now playing movies error:", error);
+      }
+    };
+
+    fetchNowPlayingMovies();
+  }, [dispatch]);
 };
 
 export default useNowPlayingMovies;

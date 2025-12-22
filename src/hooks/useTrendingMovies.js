@@ -1,26 +1,25 @@
-import { addTrendingMovies } from "../utils/moviesSlice";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { TMDB_KEY } from "../utils/constants";
+import { addTrendingMovies } from "../store/moviesSlice";
+
+const API_BASE_URL = "https://your-backend.onrender.com";
 
 const useTrendingMovies = () => {
   const dispatch = useDispatch();
-  const trendMov = useSelector((store) => store.movies.popularMovies);
-
-  const getTrendingMovies = async () => {
-    const data = await fetch(
-      "https://api.themoviedb.org/3/movie/top_rated?page=1",
-      TMDB_KEY
-    );
-    const json = await data.json();
-
-    dispatch(addTrendingMovies(json));
-  };
 
   useEffect(() => {
-    !trendMov && getTrendingMovies();
-  }, []);
+    const fetchTrendingMovies = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/trending`);
+        const data = await res.json();
+        dispatch(addTrendingMovies(data.results));
+      } catch (error) {
+        console.error("Trending movies error:", error);
+      }
+    };
+
+    fetchTrendingMovies();
+  }, [dispatch]);
 };
 
 export default useTrendingMovies;
