@@ -20,14 +20,6 @@ export const API_KEY = {
   },
 };
 
-export const TMDB_KEY = {
-  method: "GET",
-  headers: {
-    Authorization: `Bearer ${process.env.REACT_APP_ACCESS_TOKEN_TMDB}`,
-    Accept: "application/json",
-  },
-};
-
 export const TMDB_CDN = "https://image.tmdb.org/t/p/w185";
 
 export const PROFILE_PIC =

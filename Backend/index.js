@@ -62,6 +62,28 @@ app.get("/api/upcoming", async (req, res) => {
   res.json(await r.json());
 });
 
+app.get("/api/search", async (req, res) => {
+  const query = req.query.q;
+
+  if (!query) return res.json({ results: [] });
+
+  const r = await fetch(
+    `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
+      query
+    )}`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.TMDB_TOKEN}`,
+        Accept: "application/json",
+      },
+    }
+  );
+
+  const data = await r.json();
+  res.json(data);
+});
+
+
 app.listen(5000, () =>
   console.log("Backend running at http://localhost:5000")
 );

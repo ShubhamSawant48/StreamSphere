@@ -26,19 +26,19 @@ const Main = () => {
         <div className="-mt-96 relative z-30">
           <MoviesList
             title="Now Playing Movies"
-            data={storeMovies.nowPlayingMovies?.results}
+            data={storeMovies?.nowPlayingMovies}
           />
           <MoviesList
             title="Popular Movies"
-            data={storeMovies.popularMovies?.results}
+            data={storeMovies?.popularMovies}
           />
           <MoviesList
             title="Trending Movies"
-            data={storeMovies.trendingMovies?.results}
+            data={storeMovies?.trendingMovies}
           />
           <MoviesList
             title="Upcoming Movies"
-            data={storeMovies.upcomingMovies?.results}
+            data={storeMovies?.upcomingMovies}
           />
         </div>
       </div>

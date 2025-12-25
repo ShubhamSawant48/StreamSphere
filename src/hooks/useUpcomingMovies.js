@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addUpcomingMovies } from "../store/moviesSlice";
-
-const API_BASE_URL = "https://your-backend.onrender.com";
+import { addUpcomingMovies } from "../utils/moviesSlice";
 
 const useUpcomingMovies = () => {
   const dispatch = useDispatch();
@@ -10,7 +8,7 @@ const useUpcomingMovies = () => {
   useEffect(() => {
     const fetchUpcomingMovies = async () => {
       try {
-        const res = await fetch(`${API_BASE_URL}/api/upcoming`);
+        const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/upcoming`);
         const data = await res.json();
         dispatch(addUpcomingMovies(data.results));
       } catch (error) {

@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addTrendingMovies } from "../store/moviesSlice";
-
-const API_BASE_URL = "https://your-backend.onrender.com";
+import { addTrendingMovies } from "../utils/moviesSlice";
 
 const useTrendingMovies = () => {
   const dispatch = useDispatch();
@@ -10,7 +8,7 @@ const useTrendingMovies = () => {
   useEffect(() => {
     const fetchTrendingMovies = async () => {
       try {
-        const res = await fetch(`${API_BASE_URL}/api/trending`);
+        const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/trending`);
         const data = await res.json();
         dispatch(addTrendingMovies(data.results));
       } catch (error) {
